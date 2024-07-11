@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native'
+import { View, StatusBar } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import AuthNavigator from './src/navigators/AuthNavigator'
 import SplashScreen from './src/screens/SplashScreen'
@@ -15,11 +15,16 @@ const App = () => {
   }, [])
 
   return (
-    isShowSplash ?
-      <SplashScreen /> :
-      <NavigationContainer>
-        <AuthNavigator />
-      </NavigationContainer>
+    <View>
+      <StatusBar barStyle='dark-content' backgroundColor='transparent' translucent={true} />
+      {
+        !isShowSplash ?
+          <SplashScreen /> :
+          <NavigationContainer>
+            <AuthNavigator />
+          </NavigationContainer>
+      }
+    </View>
 
   )
 }
