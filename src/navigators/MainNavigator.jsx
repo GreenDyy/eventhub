@@ -4,10 +4,11 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import TabNavigator from './TabNavigator'
 
 const MainNavigator = () => {
+    console.log('vừa load MainNavigator')
     const Stack = createNativeStackNavigator()
     return (
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen name='Main' component={TabNavigator}/>
+            <Stack.Screen name='Main' component={TabNavigator} />
         </Stack.Navigator>
     )
 }
