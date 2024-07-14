@@ -1,29 +1,39 @@
-import { View, Text, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { View, Text, TouchableOpacity, Image } from 'react-native'
+import React, { useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { ButtonComponent, TextComponent } from '../../components'
-import { fontFamilies } from '../../constants/appFonts'
+import { ButtonComponent, InputComponent, TextComponent } from '../../components'
 import { globalStyle } from '../../styles/globalStyle'
-
+import { Lock, Sms } from 'iconsax-react-native'
+import { appColors } from '../../constants/appColors'
 const LoginScreen = () => {
-  console.log('đang Login')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
   const handleLogin = async () => {
     AsyncStorage.setItem('accessToken', '2918382asd')
     console.log('yes sir')
   }
+
   return (
-    <View style={[globalStyle.container, {
-      padding: 16,
-    }]}>
-      <Text style={{ color: 'red' }}>LoginScreen</Text>
+    <View style={[globalStyle.container, { alignItems: 'center', justifyContent: 'center', padding: 20 }]}>
+      <View style={{}}>
+        <InputComponent
+          value={email}
+          placeholder="Email"
+          onChangeText={preText => setEmail(preText)}
+          affix={<Sms size={22} color={appColors.green2} />}
+          allowClear
+        />
 
-      <TouchableOpacity onPress={handleLogin}>
-        <Text>Press me</Text>
-      </TouchableOpacity>
-      <ButtonComponent text='Login' onPress={handleLogin} />
-      <TextComponent text='a' isTitle />
-
-      <ButtonComponent text='Login' type='link' onPress={handleLogin} />
+        <InputComponent
+          value={password}
+          placeholder="Password"
+          onChangeText={preText => setPassword(preText)}
+          affix={<Lock size={22} color={appColors.green2} />}
+          allowClear
+          isPassword
+        />
+      </View>
     </View>
   )
 }

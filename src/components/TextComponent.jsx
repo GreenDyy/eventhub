@@ -4,8 +4,8 @@ import { appColors } from '../constants/appColors'
 import { globalStyle } from '../styles/globalStyle'
 import { appFonts } from '../constants/appFonts'
 
-const TextComponent = (props) => {
-    const { text, color, fontSize, flex, fontFamily, style, isTitle } = props
+const TextComponent = ({ text, color, fontSize, flex, fontFamily, style, isTitle }) => {
+    // const { text, color, fontSize, flex, fontFamily, style, isTitle } = props
     return (
         <Text style={[globalStyle.text, {
             color: color ?? appColors.text,

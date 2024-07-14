@@ -5,5 +5,7 @@ export const appColors = {
     gray: '#807A7A',
     gray2: '#DADADA',
     green1: '#76B947',
+    green2: '#00A551',
+    greenborder: '#97BE5A',
     link: '#5669FF',
 }
