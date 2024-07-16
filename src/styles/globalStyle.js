@@ -21,6 +21,29 @@ export const globalStyle = StyleSheet.create({
         backgroundColor: appColors.white,
         paddingHorizontal: 16,
         paddingVertical: 16,
-        minHeight: 56
+        minHeight: 56,
+        flexDirection: 'row'
+    },
+    
+    shadow: {
+        shadowColor: 'rgba(0,0,0,0.5)',
+        shadowOffset: {
+            width: 0,
+            height: 6
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 8,
+        elevation: 8
+    },
+
+    section: {
+        paddingHorizontal: 16,
+        paddingBottom: 20
+    },
+
+    row: {
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center'
     }
 })

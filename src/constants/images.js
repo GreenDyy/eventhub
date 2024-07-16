@@ -4,4 +4,6 @@ export const images = {
     onboarding1: require('../assets/images/onboarding-1.png'),
     onboarding2: require('../assets/images/onboarding-2.png'),
     onboarding3: require('../assets/images/onboarding-3.png'),
+    background: require('../assets/images/background.png'),
+    logologin: require('../assets/images/logo-login.png'),
 }

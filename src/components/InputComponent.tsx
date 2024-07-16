@@ -1,14 +1,25 @@
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native'
-import React, { useState } from 'react'
-import { CloseCircle, EyeSlash } from 'iconsax-react-native'
-import { appColors } from '../constants/appColors'
-import { globalStyle } from '../styles/globalStyle'
+import React, { useState } from 'react';
+import { View, TextInput, TouchableOpacity, StyleSheet, StyleProp, TextStyle, ViewStyle, KeyboardTypeOptions } from 'react-native';
+import { CloseCircle, EyeSlash } from 'iconsax-react-native';
+import { appColors } from '../constants/appColors';
+import { globalStyle } from '../styles/globalStyle';
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 
-const InputComponent = ({ value, onChangeText, affix, suffix, placeholder, isPassword, allowClear, keyboardType }) => {
-  // const { value, onChangeText, affix, suffix, placeholder, isPassword, allowClear, keyboardType } = props
-  const [isShowPass, setIsShowPass] = useState(false)
+interface Props {
+  value: string;
+  onChangeText: (text: string) => void;
+  affix?: React.ReactNode;
+  suffix?: React.ReactNode;
+  placeholder?: string;
+  isPassword?: boolean;
+  allowClear?: boolean;
+  keyboardType?: KeyboardTypeOptions;
+}
+
+const InputComponent = (props: Props) => {
+  const { value, onChangeText, affix, suffix, placeholder, isPassword, allowClear, keyboardType } = props;
+  const [isShowPass, setIsShowPass] = useState(false);
 
   const handlePress = () => {
     if (isPassword) {
@@ -17,10 +28,12 @@ const InputComponent = ({ value, onChangeText, affix, suffix, placeholder, isPas
       onChangeText('');
     }
   };
+
   return (
     <View style={[styles.inputContainer]}>
-      {affix ?? affix}
-      <TextInput style={[globalStyle.text, styles.input]}
+      {affix && affix}
+      <TextInput
+        style={[globalStyle.text, styles.input]}
         value={value}
         onChangeText={val => onChangeText(val)}
         placeholder={placeholder || ''}
@@ -28,8 +41,7 @@ const InputComponent = ({ value, onChangeText, affix, suffix, placeholder, isPas
         placeholderTextColor={appColors.gray}
         keyboardType={keyboardType ?? 'default'}
       />
-      {suffix ?? suffix}
-
+      {suffix && suffix}
       <TouchableOpacity onPress={handlePress}>
         {isPassword ? (
           <FontAwesome name={isShowPass ? 'eye-slash' : 'eye'} size={22} color={appColors.gray} />
@@ -38,10 +50,10 @@ const InputComponent = ({ value, onChangeText, affix, suffix, placeholder, isPas
         )}
       </TouchableOpacity>
     </View>
-  )
-}
+  );
+};
 
-export default InputComponent
+export default InputComponent;
 
 const styles = StyleSheet.create({
   inputContainer: {
@@ -55,14 +67,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 15,
     backgroundColor: appColors.white,
-    marginBottom: 20
+    marginBottom: 20,
   },
-
   input: {
     padding: 0,
     margin: 0,
     flex: 1,
     paddingHorizontal: 14,
     color: appColors.gray,
-  }
-})
+  },
+});
