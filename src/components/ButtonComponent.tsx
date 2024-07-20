@@ -25,15 +25,18 @@ const ButtonComponent = (props: Props) => {
         <TouchableOpacity
             style={[
                 globalStyle.button,
+                globalStyle.shadow,
                 {
                     backgroundColor: backgroundColor ?? appColors.primary,
+                    marginBottom: 17,
+                    width: '80%',
+                    alignSelf:'center'
                 },
-                globalStyle.shadow,
                 style,
             ]}
             onPress={onPress}
         >
-            {icon && icon}
+            {icon && iconFlex ==='left' && icon}
             <TextComponent
                 text={text}
                 style={[
@@ -41,6 +44,7 @@ const ButtonComponent = (props: Props) => {
                     {
                         marginLeft: icon ? 12 : 0,
                         fontSize: 16,
+                        textAlign:'center'
                     },
                 ]}
                 color={color ?? appColors.white}
