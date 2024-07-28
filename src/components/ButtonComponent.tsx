@@ -16,27 +16,29 @@ interface Props {
     onPress?: () => void;
     textStyle?: StyleProp<ViewStyle>;
     fontFamily?: string;
+    disable?: boolean
 }
 
 const ButtonComponent = (props: Props) => {
-    const { icon, text, color, backgroundColor, style, iconFlex = 'left', type = 'primary', onPress, textStyle, fontFamily } = props;
+    const { icon, text, color, backgroundColor, style, iconFlex = 'left', type = 'primary', onPress, textStyle, fontFamily, disable } = props;
 
     return type === 'primary' ? (
         <TouchableOpacity
+            disabled={disable}
             style={[
                 globalStyle.button,
                 globalStyle.shadow,
                 {
-                    backgroundColor: backgroundColor ?? appColors.primary,
+                    backgroundColor: backgroundColor ?? (disable ? appColors.gray : appColors.primary),
                     marginBottom: 17,
                     width: '80%',
-                    alignSelf:'center'
+                    alignSelf: 'center'
                 },
                 style,
             ]}
             onPress={onPress}
         >
-            {icon && iconFlex ==='left' && icon}
+            {icon && iconFlex === 'left' && icon}
             <TextComponent
                 text={text}
                 style={[
@@ -44,7 +46,7 @@ const ButtonComponent = (props: Props) => {
                     {
                         marginLeft: icon ? 12 : 0,
                         fontSize: 16,
-                        textAlign:'center'
+                        textAlign: 'center'
                     },
                 ]}
                 color={color ?? appColors.white}

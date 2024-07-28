@@ -15,10 +15,11 @@ interface Props {
   isPassword?: boolean;
   allowClear?: boolean;
   keyboardType?: KeyboardTypeOptions;
+  onEndEditing?: () => void
 }
 
 const InputComponent = (props: Props) => {
-  const { value, onChangeText, affix, suffix, placeholder, isPassword, allowClear, keyboardType } = props;
+  const { value, onChangeText, affix, suffix, placeholder, isPassword, allowClear, keyboardType, onEndEditing } = props;
   const [isShowPass, setIsShowPass] = useState(false);
 
   const handlePress = () => {
@@ -40,6 +41,7 @@ const InputComponent = (props: Props) => {
         secureTextEntry={isPassword && !isShowPass}
         placeholderTextColor={appColors.gray}
         keyboardType={keyboardType ?? 'default'}
+        onEndEditing={onEndEditing}
       />
       {suffix && suffix}
       <TouchableOpacity onPress={handlePress}>
@@ -67,7 +69,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 15,
     backgroundColor: appColors.white,
-    marginBottom: 20,
+    // marginBottom: 20,
   },
   input: {
     padding: 0,

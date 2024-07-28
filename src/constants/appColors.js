@@ -8,4 +8,5 @@ export const appColors = {
     green2: '#00A551',
     greenborder: '#97BE5A',
     link: '#5669FF',
+    danger: '#c0392b'
 }

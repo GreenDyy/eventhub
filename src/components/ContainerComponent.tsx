@@ -56,7 +56,7 @@ const ContainerComponent = (props: Props) => {
     );
 
     const returnContainer = isScroll ? (
-        <ScrollView style={[style, { marginTop: title || back ? 48 : 0 }]} contentContainerStyle={{ paddingBottom: 30 }}>
+        <ScrollView style={[style, { marginTop: title || back ? 48 : 0 }]} contentContainerStyle={{ paddingBottom: 30 }} showsVerticalScrollIndicator={false}>
             {children}
         </ScrollView>
     ) : (
