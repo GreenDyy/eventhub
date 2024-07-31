@@ -29,7 +29,7 @@ const ButtonComponent = (props: Props) => {
                 globalStyle.button,
                 globalStyle.shadow,
                 {
-                    backgroundColor: backgroundColor ?? (disable ? appColors.gray : appColors.primary),
+                    backgroundColor: backgroundColor ?? (disable ? appColors.gray2 : appColors.primary),
                     marginBottom: 17,
                     width: '80%',
                     alignSelf: 'center'
@@ -46,7 +46,7 @@ const ButtonComponent = (props: Props) => {
                     {
                         marginLeft: icon ? 12 : 0,
                         fontSize: 16,
-                        textAlign: 'center'
+                        textAlign: 'center',
                     },
                 ]}
                 color={color ?? appColors.white}

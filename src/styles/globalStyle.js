@@ -24,7 +24,7 @@ export const globalStyle = StyleSheet.create({
         minHeight: 56,
         flexDirection: 'row'
     },
-    
+
     shadow: {
         shadowColor: 'rgba(0,0,0,0.5)',
         shadowOffset: {
@@ -45,5 +45,14 @@ export const globalStyle = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'flex-start',
         alignItems: 'center'
+    },
+
+    iconContainer: {
+        borderRadius: 999,
+        width: 30,
+        height: 30,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: appColors.green1
     }
 })

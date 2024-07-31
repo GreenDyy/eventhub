@@ -21,10 +21,10 @@ const SignUpScreen = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [errorMess, setErrorMess] = useState()
   const [profile, setprofile] = useState({
-    username: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
+    username: 'duy',
+    email: 'duyxanh2002@gmail.com',
+    password: '123456Aa@',
+    confirmPassword: '123456Aa@',
   })
 
   const [errorMessProfile, setErrorMessProfile] = useState(initRrrorMessProfile)
@@ -109,28 +109,21 @@ const SignUpScreen = ({ navigation }) => {
   }
 
   const handleRegister = async () => {
-    const { email, password, username } = profile
     setIsLoading(true)
     const api = '/verification'
     try {
       const res = await authenticationAPI.handleAuthentication(api, { email: profile.email }, 'post')
       console.log(res)
+      navigation.navigate('VerificationScreen', {
+        code: res.data.code,
+        ...profile
+      })
       setIsLoading(false)
     }
     catch (e) {
       console.log(e)
     }
-    // try {
-    //   const res = await authenticationAPI.handleAuthentication('/register', { username, email, password }, 'post')
-    //   dispatch(addAuth(res.data))
-    //   await AsyncStorage.setItem('auth', JSON.stringify(res.data))
-    //   setIsLoading(false)
 
-    // }
-    // catch (e) {
-    //   console.log(e)
-    //   setIsLoading(false)
-    // }
   }
 
   return (

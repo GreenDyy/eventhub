@@ -1,4 +1,3 @@
-import { appInfors } from "../constants/appInfors"
 import axiosClient from "./axiosClient"
 
 class AuthAPI {
@@ -7,7 +6,7 @@ class AuthAPI {
         data?: any,
         method?: 'get' | 'post' | 'put' | 'delete'
     ) => {
-        return await axiosClient(`${appInfors.BASE_URL}/auth${url}`, {
+        return await axiosClient(`/auth${url}`, {
             method: method ?? 'get',
             data
         })

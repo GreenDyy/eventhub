@@ -1,6 +1,9 @@
 import axios from "axios";
 import queryString from "query-string";
+import { appInfors } from "../constants/appInfors"
+
 const axiosClient = axios.create({
+    baseURL: appInfors.BASE_URL,
     paramsSerializer: params => queryString.stringify(params)
 })
 

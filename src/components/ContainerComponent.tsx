@@ -60,7 +60,7 @@ const ContainerComponent = (props: Props) => {
             {children}
         </ScrollView>
     ) : (
-        <View style={[style, { marginTop: title || back ? 48 : 0, flex: 1 }]}>
+        <View style={[style, { marginTop: title || back ? 48 : 0}]}>
             {children}
         </View>
     );
