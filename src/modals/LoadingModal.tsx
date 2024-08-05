@@ -7,7 +7,7 @@ import { appColors } from '../constants/appColors'
 interface Props {
     visible: boolean,
     mess?: string,
-    onClose: () => void
+    onClose?: () => void
 }
 
 const LoadingModal = (props: Props) => {

@@ -19,7 +19,6 @@ const initRrrorMessProfile = {
 
 const SignUpScreen = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false)
-  const [errorMess, setErrorMess] = useState()
   const [profile, setprofile] = useState({
     username: 'duy',
     email: 'duyxanh2002@gmail.com',
@@ -122,6 +121,7 @@ const SignUpScreen = ({ navigation }) => {
     }
     catch (e) {
       console.log(e)
+      setIsLoading(false)
     }
 
   }
@@ -183,13 +183,6 @@ const SignUpScreen = ({ navigation }) => {
 
       </SectionComponent>
 
-
-
-      {errorMess &&
-        <SectionComponent>
-          <TextComponent text={errorMess} color={appColors.danger} />
-        </SectionComponent>
-      }
       <SpaceComponent height={16} />
       <SectionComponent>
         <ButtonComponent text='SIGN UP' type='primary' onPress={handleRegister} disable={!isFormValid} />

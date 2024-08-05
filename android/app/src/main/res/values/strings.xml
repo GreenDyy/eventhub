@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">eventhub</string>
+    <string name="facebook_app_id">882194853726940</string>
+    <string name="facebook_client_token">5b968f0e9e78e90047097ba49a17a659</string>
 </resources>
