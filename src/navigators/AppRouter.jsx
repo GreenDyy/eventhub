@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useAsyncStorage } from '@react-native-async-storage/async-storage'
+import AsyncStorage, { useAsyncStorage } from '@react-native-async-storage/async-storage'
 import { useDispatch, useSelector } from 'react-redux'
 import { addAuth, authSelector } from '../srcRedux/reducers/authReducer'
 import AuthNavigator from './AuthNavigator'
@@ -7,15 +7,11 @@ import MainNavigator from './MainNavigator'
 import SplashScreen from '../screens/SplashScreen'
 
 const AppRouter = () => {
-    const { getItem } = useAsyncStorage('auth')
-
     const [isShowSplash, setIsShowSplash] = useState(true)
     const dispatch = useDispatch()
     const auth = useSelector(authSelector)
-    
+
     console.log(auth)
-
-
 
     useEffect(() => {
         checkLogin()
@@ -27,8 +23,22 @@ const AppRouter = () => {
     }, [])
 
     const checkLogin = async () => {
-        const res = await getItem()
-        res && dispatch(addAuth(JSON.parse(res)))
+        try {
+            console.log('Đang check login');
+            const res = await AsyncStorage.getItem('auth');
+    
+            if (res) {
+                try {
+                    const parsedRes = JSON.parse(res);
+                    dispatch(addAuth(parsedRes));
+                } catch (e) {
+                    console.log(res)
+                    console.error('Không thể parse JSON:', e);
+                }
+            }
+        } catch (error) {
+            console.error('Lỗi khi kiểm tra đăng nhập:', error);
+        }
     }
 
     return (

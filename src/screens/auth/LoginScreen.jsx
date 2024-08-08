@@ -27,8 +27,8 @@ const initRrrorMessProfile = {
 }
 
 const LoginScreen = ({ navigation }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('duyxanh2002@gmail.com');
+  const [password, setPassword] = useState('162265');
   const [isRemember, setIsRemember] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessProfile, setErrorMessProfile] = useState(initRrrorMessProfile)
@@ -104,15 +104,15 @@ const LoginScreen = ({ navigation }) => {
     try {
       const res = await authenticationAPI.handleAuthentication('/login', { email, password }, 'post');
       setIsLoading(false);
+      // console.log('login ne: ', res.data)
       dispatch(addAuth(res.data));
 
-      if (isRemember) {
-        await AsyncStorage.setItem('auth', JSON.stringify(res.data));
-        await AsyncStorage.setItem('email', email);
-      } else {
-        await AsyncStorage.setItem('auth', email);
-      }
+      await AsyncStorage.setItem('auth', JSON.stringify(res.data));
       await AsyncStorage.setItem('remember', JSON.stringify(isRemember));
+      if (isRemember) {
+
+        await AsyncStorage.setItem('email', email);
+      }
     }
     catch {
       setIsLoading(false);
@@ -152,7 +152,7 @@ const LoginScreen = ({ navigation }) => {
         />
 
         {/* <SpaceComponent height={20} /> */}
-        
+
         <TextComponent text={errorMessProfile.messPassword} color={appColors.danger} style={{ marginVertical: 5 }} />
         <InputComponent
           value={password}
@@ -181,7 +181,7 @@ const LoginScreen = ({ navigation }) => {
       <SpaceComponent height={16} />
 
       <SectionComponent>
-        <ButtonComponent text='SIGN IN' type='primary' onPress={handleLogin} disable={!isFormValid}/>
+        <ButtonComponent text='SIGN IN' type='primary' onPress={handleLogin} disable={!isFormValid} />
       </SectionComponent>
 
       <SocialLogin />

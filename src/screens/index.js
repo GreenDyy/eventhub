@@ -5,7 +5,7 @@ import SignUpScreen from "./auth/SignUpScreen"
 import ForgotPasswordScreen from "./auth/ForgotPasswordScreen"
 import VerificationScreen from "./auth/VerificationScreen"
 import AddNewScreen from "./AddNewScreen"
-import EventsScreen from "./events/EventsScreen"
+import EventScreen from "./events/EventScreen"
 import MapScreen from "./map/MapScreen"
 import ProfileScreen from "./profile/ProfileScreen"
 
@@ -17,7 +17,7 @@ export {
     ForgotPasswordScreen,
     VerificationScreen,
     AddNewScreen,
-    EventsScreen,
+    EventScreen,
     MapScreen,
     ProfileScreen,
 
