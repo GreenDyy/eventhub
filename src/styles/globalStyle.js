@@ -54,5 +54,12 @@ export const globalStyle = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: appColors.green1
-    }
+    },
+
+    tag: {
+        paddingVertical: 8,
+        paddingHorizontal: 12,
+        borderRadius: 999
+    },
+
 })

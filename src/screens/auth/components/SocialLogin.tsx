@@ -20,7 +20,7 @@ const SocialLogin = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const dispatch = useDispatch()
-    const api = '/googleSignin'
+
     const handleLoginWithGoogle = async () => {
         await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
 
@@ -30,12 +30,13 @@ const SocialLogin = () => {
             console.log(userInfo.user);
 
 
-            const res = await authenticationAPI.handleAuthentication(api, userInfo.user, 'post')
+            const res = await authenticationAPI.handleAuthentication('/googleSignin', userInfo.user, 'post')
             console.log(res);
         } catch (error) {
             console.error(error);
             Alert.alert('Error', 'Google Sign-In failed. Please try again.');
         }
+        //chưa xog nha, chưa tạo app google dc
     };
 
     const handleLoginWithFacebook = async () => {
@@ -51,13 +52,13 @@ const SocialLogin = () => {
                     const newUser = {
                         username: currentProfile.name,
                         email: currentProfile.userID,
-                        photoUrl: currentProfile.imageURL,
+                        photo: currentProfile.imageURL,
                     }
 
-                    const res = await authenticationAPI.handleAuthentication(api, newUser, 'post')
+                    const res = await authenticationAPI.handleAuthentication('/googleSignin', newUser, 'post')
                     dispatch(addAuth(res.data))
                     await AsyncStorage.setItem('auth', JSON.stringify(res.data))
-                    console.log(res)
+                    console.log('data login fb:', res)
                 }
             }
             setIsLoading(false)

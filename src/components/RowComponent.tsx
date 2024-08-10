@@ -11,7 +11,7 @@ const RowComponent = (props: Props) => {
     const { style, children, onPress } = props
     return (
         onPress ? (
-            <TouchableOpacity onPress={onPress} style={[globalStyle.row, {}, style]} activeOpacity={0.9}>
+            <TouchableOpacity onPress={onPress} style={[globalStyle.row, {}, style]} activeOpacity={0.5}>
                 {children}
             </TouchableOpacity>
         ) : (

@@ -12,6 +12,7 @@ import MapNavigator from './MapNavigator'
 import ProfileNavigator from './ProfileNavigator'
 import { AddSquare } from 'iconsax-react-native'
 import { globalStyle } from '../styles/globalStyle'
+import DrawerNavigator from './DrawerNavigator'
 
 
 const TabNavigator = () => {

@@ -8,6 +8,7 @@ import AddNewScreen from "./AddNewScreen"
 import EventScreen from "./events/EventScreen"
 import MapScreen from "./map/MapScreen"
 import ProfileScreen from "./profile/ProfileScreen"
+import SearchEvent from "./events/SearchEvent"
 
 export {
     HomeScreen,
@@ -20,5 +21,5 @@ export {
     EventScreen,
     MapScreen,
     ProfileScreen,
-
+    SearchEvent,
 }

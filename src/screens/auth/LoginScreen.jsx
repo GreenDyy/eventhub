@@ -104,7 +104,7 @@ const LoginScreen = ({ navigation }) => {
     try {
       const res = await authenticationAPI.handleAuthentication('/login', { email, password }, 'post');
       setIsLoading(false);
-      // console.log('login ne: ', res.data)
+      console.log('login ne: ', res.data)
       dispatch(addAuth(res.data));
 
       await AsyncStorage.setItem('auth', JSON.stringify(res.data));
