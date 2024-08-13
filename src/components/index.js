@@ -7,6 +7,11 @@ import SectionComponent from "./SectionComponent"
 import RowComponent from "./RowComponent"
 import CircleComponent from "./CircleComponent"
 import TagComponent from "./TagComponent"
+import CategoriesListComponent from "./CategoriesListComponent"
+import TabBarComponent from "./TabBarComponent"
+import EventItemComponent from "./EventItemComponent" 
+import CardComponent from "./CardComponent"
+import AvatarGroup from "./AvatarGroup"
 
 export {
     SpaceComponent,
@@ -17,5 +22,9 @@ export {
     SectionComponent,
     RowComponent,
     CircleComponent,
-    TagComponent
+    TagComponent,CategoriesListComponent,
+    TabBarComponent,
+    EventItemComponent,
+    CardComponent,
+    AvatarGroup,
 }

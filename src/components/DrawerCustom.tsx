@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, StyleSheet, Platform, StatusBar, Image, FlatList } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, Platform, StatusBar, Image, FlatList, Linking, Alert } from 'react-native'
 import React from 'react'
 import TextComponent from './TextComponent'
 import { useDispatch, useSelector } from 'react-redux'
@@ -16,7 +16,7 @@ import { Bookmark2, Calendar, Logout, Message2, MessageQuestion, Setting2, Sms, 
 const DrawerCustom = ({ navigation }: any) => {
     const user = useSelector(authSelector)
     const dispatch = useDispatch()
-
+    console.log(user)
     const size = 20;
     const color = appColors.gray;
     const drawerMenu = [
@@ -75,12 +75,17 @@ const DrawerCustom = ({ navigation }: any) => {
         navigation.navigate('Profile')
     }
 
+    const handleUpgrade = () => {
+        const url = 'https://www.youtube.com/watch?v=VTwoozN2uYQ'
+        Linking.openURL(url);
+    }
+
     return (
         <View style={[localStyles.container]}>
             {/* avatar */}
             <TouchableOpacity onPress={handleNavigationToProfile}>
                 {
-                    !user?.photo ? (
+                    user?.photo ? (
                         <Image source={{ uri: user.photo }} style={[localStyles.avatar]} resizeMode='contain' />
                     ) : (
                         <View style={[localStyles.avatar, { backgroundColor: appColors.gray }]}>
@@ -124,16 +129,14 @@ const DrawerCustom = ({ navigation }: any) => {
             />
 
             <RowComponent style={{ justifyContent: 'flex-start' }}>
-                <TouchableOpacity style={[globalStyle.button, { backgroundColor: '#00F8FF33', height: 'auto' }]}>
+                <TouchableOpacity
+                    style={[globalStyle.button, { backgroundColor: '#00F8FF33', height: 'auto' }]}
+                    onPress={handleUpgrade}>
                     <MaterialCommunityIcons name='crown' size={22} color={'#00F8FF'} />
                     <SpaceComponent width={8} />
                     <TextComponent text='Upgrade Pro' color='#00F8FF' />
                 </TouchableOpacity>
             </RowComponent>
-
-            <TouchableOpacity onPress={handleLogout}>
-                <Text>Logout</Text>
-            </TouchableOpacity>
 
         </View>
     )

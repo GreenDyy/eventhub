@@ -12,6 +12,7 @@ interface Props {
     fontFamily?: string;
     style?: StyleProp<TextStyle>;
     isTitle?: boolean;
+    numberOfLines?: number
 }
 
 const TextComponent = (props: Props) => {
@@ -23,9 +24,10 @@ const TextComponent = (props: Props) => {
         fontFamily,
         style,
         isTitle = false,
+        numberOfLines
     } = props;
 
-        const fontSizeDefault = Platform.OS === 'ios' ? 16 : 14
+    const fontSizeDefault = Platform.OS === 'ios' ? 16 : 14
     return (
         <Text
             style={[
@@ -38,6 +40,7 @@ const TextComponent = (props: Props) => {
                 },
                 style,
             ]}
+            numberOfLines={numberOfLines}
         >
             {text}
         </Text>

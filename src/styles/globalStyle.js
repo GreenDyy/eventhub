@@ -59,7 +59,15 @@ export const globalStyle = StyleSheet.create({
     tag: {
         paddingVertical: 8,
         paddingHorizontal: 12,
-        borderRadius: 999
+        borderRadius: 999,
+        backgroundColor: appColors.white
     },
+
+    card: {
+        padding: 12,
+        borderRadius: 12,
+        backgroundColor: appColors.white,
+        margin: 12,
+      },
 
 })

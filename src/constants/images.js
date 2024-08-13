@@ -6,4 +6,5 @@ export const images = {
     onboarding3: require('../assets/images/onboarding-3.png'),
     background: require('../assets/images/background.png'),
     logologin: require('../assets/images/logo-login.png'),
+    invite: require('../assets/images/invite-image.png')
 }

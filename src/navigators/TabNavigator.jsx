@@ -1,18 +1,16 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { AddSquare } from 'iconsax-react-native'
 import React from 'react'
-import { View } from 'react-native'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { CircleComponent, TextComponent } from '../components'
 import { appColors } from '../constants/appColors'
 import { AddNewScreen } from '../screens'
+import { globalStyle } from '../styles/globalStyle'
 import EventNavigator from './EventNavigator'
 import ExplorerNavigator from './ExplorerNavigator'
 import MapNavigator from './MapNavigator'
 import ProfileNavigator from './ProfileNavigator'
-import { AddSquare } from 'iconsax-react-native'
-import { globalStyle } from '../styles/globalStyle'
-import DrawerNavigator from './DrawerNavigator'
 
 
 const TabNavigator = () => {

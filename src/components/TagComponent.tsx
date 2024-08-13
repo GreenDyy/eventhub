@@ -3,6 +3,7 @@ import React, { ReactNode } from 'react'
 import TextComponent from './TextComponent'
 import { globalStyle } from '../styles/globalStyle'
 import { appColors } from '../constants/appColors'
+import { appFonts } from '../constants/appFonts'
 
 interface Props {
     onPress?: () => void
@@ -28,7 +29,8 @@ const TagComponent = (props: Props) => {
             <TextComponent
                 text={text}
                 color={textColor ? textColor : backgroundColor ? appColors.white : appColors.gray}
-                style={{ marginLeft: icon ? 8 : 0 }} />
+                style={{ marginLeft: icon ? 8 : 0 }} 
+                fontFamily={appFonts.airBnBMedium}/>
         </TouchableOpacity>
     )
 }
