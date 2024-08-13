@@ -11,6 +11,7 @@ import { appColors } from '../constants/appColors'
 import SpaceComponent from './SpaceComponent'
 import { globalStyle } from '../styles/globalStyle'
 import { appFonts } from '../constants/appFonts'
+import { useNavigation } from '@react-navigation/native'
 
 
 interface Props {
@@ -19,11 +20,12 @@ interface Props {
 }
 const EventItemComponent = (props: Props) => {
   const { item, type } = props
-
+  const navigation: any = useNavigation()
   return (
     <CardComponent
       styles={[globalStyle.shadow, { width: appInfors.sizes.WIDTH * 0.7 }]}
-      onPress={() => { }}>
+      onPress={() => { navigation.navigate('EventDetailScreen', { item }) }}
+    >
       <ImageBackground source={require('../assets/images/event-image.png')}
         style={{
           flex: 1,
@@ -48,7 +50,7 @@ const EventItemComponent = (props: Props) => {
           <CardComponent
             styles={{ justifyContent: 'center', alignItems: 'center', height: 30, width: 30, padding: 0, margin: 0, borderRadius: 7 }}
             bgColor='rgba(255, 255, 255, 0.8)'>
-           <Save2 size={14} color={appColors.danger2} variant='Bold'/>
+            <Save2 size={14} color={appColors.danger2} variant='Bold' />
           </CardComponent>
         </RowComponent>
 

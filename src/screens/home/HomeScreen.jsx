@@ -27,7 +27,7 @@ const eventData = [
 
   },
   {
-    title: 'Contept Sơn Tùng MTP',
+    title: 'Contept SooBin',
     description: 'Buổi hoà nhạc to nhất TP.HCM 2024',
     location: {
       title: 'HUIT Đại học Công Thương TP.HCM',
@@ -201,7 +201,7 @@ const HomeScreen = ({ navigation }) => {
 
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={{ marginTop: 16 }}
+        style={{ marginTop: Platform.OS === 'android' ? 18 : 22 }}
       >
         {/* section sự kiện */}
         <SectionComponent style={{ paddingTop: 20, paddingHorizontal: 0, }}>

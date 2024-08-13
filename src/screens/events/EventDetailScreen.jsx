@@ -2,10 +2,10 @@ import { View, Text } from 'react-native'
 import React from 'react'
 
 const EventDetailScreen = ({navigation, route}) => {
-    const {} = route.params
+    const {item} = route.params
   return (
     <View>
-      <Text>EventDetailScreen</Text>
+      <Text>{item.title}</Text>
     </View>
   )
 }
