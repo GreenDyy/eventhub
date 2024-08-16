@@ -13,7 +13,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { LoadingModal } from '../../../modals'
 
 GoogleSignin.configure({
-    webClientId: '165452714649-nq15b8vbecas7rd7mfm4du3k85t80u8b.apps.googleusercontent.com',
+    // webClientId: '165452714649-nq15b8vbecas7rd7mfm4du3k85t80u8b.apps.googleusercontent.com'
 })
 Settings.setAppID('882194853726940')
 const SocialLogin = () => {
@@ -27,20 +27,29 @@ const SocialLogin = () => {
         try {
             await GoogleSignin.hasPlayServices()
             const userInfo = await GoogleSignin.signIn();
-            console.log(userInfo.user);
+            console.log('thông tin google này sẽ dc gửi qua BE: ', userInfo.user);
 
-
-            const res = await authenticationAPI.handleAuthentication('/googleSignin', userInfo.user, 'post')
+            const newUser = {
+                username: userInfo.user.name,
+                email: userInfo.user.email,
+                photo: userInfo.user.photo,
+                //thông tin khác nếu cần
+            }
+            const res = await authenticationAPI.handleAuthentication('/googleSignin', newUser, 'post')
             console.log(res);
+            await AsyncStorage.setItem('auth', JSON.stringify(res.data))
+            dispatch(addAuth(res.data))
+            setIsLoading(false)
         } catch (error) {
-            console.error(error);
-            Alert.alert('Error', 'Google Sign-In failed. Please try again.');
+            // console.error(error);
+            // Alert.alert('Error', 'Google Sign-In failed. Please try again.');
+            
+            setIsLoading(false)
         }
-        //chưa xog nha, chưa tạo app google dc
     };
 
     const handleLoginWithFacebook = async () => {
-        setIsLoading(true)
+        // setIsLoading(true)
         try {
             const result = await LoginManager.logInWithPermissions(['public_profile'])
             if (result.isCancelled) {
@@ -56,8 +65,8 @@ const SocialLogin = () => {
                     }
 
                     const res = await authenticationAPI.handleAuthentication('/googleSignin', newUser, 'post')
-                    dispatch(addAuth(res.data))
                     await AsyncStorage.setItem('auth', JSON.stringify(res.data))
+                    dispatch(addAuth(res.data))
                     console.log('data login fb:', res)
                 }
             }

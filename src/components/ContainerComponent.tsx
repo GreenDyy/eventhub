@@ -80,6 +80,7 @@ const ContainerComponent = (props: Props) => {
         </ImageBackground>
     ) : (
         <SafeAreaView style={[globalStyle.container, { paddingTop: StatusBar.currentHeight }]}>
+            <StatusBar barStyle={'dark-content'}/>
             <View>
                 {headerComponent}
                 {returnContainer}

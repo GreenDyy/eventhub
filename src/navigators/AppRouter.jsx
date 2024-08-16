@@ -7,6 +7,7 @@ import MainNavigator from './MainNavigator'
 import SplashScreen from '../screens/SplashScreen'
 
 const AppRouter = () => {
+    //trong router này. nó sẽ checkGogin, là dò auth trong AsynsStoreage xem có ko rồi mới gán data vào redux, từ redux đó mới lấy accessToken để quyết đính sẽ đến router nào
     const [isShowSplash, setIsShowSplash] = useState(true)
     const dispatch = useDispatch()
     const auth = useSelector(authSelector)
@@ -26,7 +27,7 @@ const AppRouter = () => {
         try {
             console.log('Đang check login');
             const res = await AsyncStorage.getItem('auth');
-    
+
             if (res) {
                 try {
                     const parsedRes = JSON.parse(res);
@@ -43,7 +44,10 @@ const AppRouter = () => {
 
     return (
         <>
+            {/* dùng chính */}
             {isShowSplash ? <SplashScreen /> : (auth.accessToken ? <MainNavigator /> : <AuthNavigator />)}
+            {/* test mốt xoá, xoá thì mở lại cái trên */}
+            {/* {isShowSplash ? <SplashScreen /> : (auth.accessToken ? <MainNavigator /> : <AuthNavigator />)} */}
         </>
     )
 }

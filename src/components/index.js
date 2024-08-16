@@ -12,6 +12,7 @@ import TabBarComponent from "./TabBarComponent"
 import EventItemComponent from "./EventItemComponent" 
 import CardComponent from "./CardComponent"
 import AvatarGroup from "./AvatarGroup"
+import ChoiceLocationComponent from "./ChoiceLocationComponent"
 
 export {
     SpaceComponent,
@@ -22,9 +23,11 @@ export {
     SectionComponent,
     RowComponent,
     CircleComponent,
-    TagComponent,CategoriesListComponent,
+    TagComponent,
+    CategoriesListComponent,
     TabBarComponent,
     EventItemComponent,
     CardComponent,
     AvatarGroup,
+    ChoiceLocationComponent,
 }

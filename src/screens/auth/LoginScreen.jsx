@@ -1,9 +1,10 @@
-import { Lock, Sms } from 'iconsax-react-native';
+import { ArrowRight, Lock, Sms } from 'iconsax-react-native';
 import React, { useEffect, useState } from 'react';
 import { Alert, Image, Switch } from 'react-native';
 import authenticationAPI from '../../apis/authApis';
 import {
   ButtonComponent,
+  CircleComponent,
   ContainerComponent,
   InputComponent,
   RowComponent,
@@ -181,7 +182,18 @@ const LoginScreen = ({ navigation }) => {
       <SpaceComponent height={16} />
 
       <SectionComponent>
-        <ButtonComponent text='SIGN IN' type='primary' onPress={handleLogin} disable={!isFormValid} />
+        <ButtonComponent
+          text='SIGN IN'
+          type='primary'
+          onPress={handleLogin}
+          disable={!isFormValid || isLoading}
+          icon={
+            <CircleComponent color={isFormValid ? appColors.primary2 : appColors.gray} size={30}>
+              <ArrowRight size={16} color={appColors.white} />
+            </CircleComponent>
+          }
+          iconFlex='right'
+        />
       </SectionComponent>
 
       <SocialLogin />
@@ -191,7 +203,21 @@ const LoginScreen = ({ navigation }) => {
           <TextComponent text='Already have an account? ' />
           <ButtonComponent text='Sign up' type='link' onPress={() => navigation.navigate('SignUpScreen')} />
         </RowComponent>
+
       </SectionComponent>
+
+      <ButtonComponent text='test login' type='link' onPress={() => {
+        dispatch(addAuth({
+          id: '',
+          email: '',
+          accessToken: 'dsadsa',
+        }));
+        AsyncStorage.setItem('auth', JSON.stringify({
+          id: '',
+          email: '',
+          accessToken: '',
+        }));
+      }} />
       <LoadingModal visible={isLoading} />
     </ContainerComponent>
   );

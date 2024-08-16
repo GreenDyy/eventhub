@@ -16,10 +16,12 @@ interface Props {
   allowClear?: boolean;
   keyboardType?: KeyboardTypeOptions;
   onEndEditing?: () => void
+  numberOfLines?: number
+  style?: StyleProp<ViewStyle>
 }
 
 const InputComponent = (props: Props) => {
-  const { value, onChangeText, affix, suffix, placeholder, isPassword, allowClear, keyboardType, onEndEditing } = props;
+  const { value, onChangeText, affix, suffix, placeholder, isPassword, allowClear, keyboardType, onEndEditing, numberOfLines = 1, style } = props;
   const [isShowPass, setIsShowPass] = useState(false);
 
   const handlePress = () => {
@@ -31,7 +33,7 @@ const InputComponent = (props: Props) => {
   };
 
   return (
-    <View style={[styles.inputContainer]}>
+    <View style={[styles.inputContainer, { paddingHorizontal: affix || suffix ? 14 : 0 }, style]}>
       {affix && affix}
       <TextInput
         style={[globalStyle.text, styles.input]}
@@ -42,6 +44,8 @@ const InputComponent = (props: Props) => {
         placeholderTextColor={appColors.gray}
         keyboardType={keyboardType ?? 'default'}
         onEndEditing={onEndEditing}
+        multiline={numberOfLines >= 2}
+        numberOfLines={numberOfLines}
       />
       {suffix && suffix}
       <TouchableOpacity onPress={handlePress}>
@@ -67,7 +71,7 @@ const styles = StyleSheet.create({
     minHeight: 56,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 15,
+
     backgroundColor: appColors.white,
     // marginBottom: 20,
   },

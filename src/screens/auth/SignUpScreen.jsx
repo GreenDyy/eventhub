@@ -1,9 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { Lock, Sms, User } from 'iconsax-react-native'
+import { ArrowRight, Lock, Sms, User } from 'iconsax-react-native'
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import authenticationAPI from '../../apis/authApis'
-import { ButtonComponent, ContainerComponent, InputComponent, RowComponent, SectionComponent, SpaceComponent, TextComponent } from '../../components'
+import { ButtonComponent, CircleComponent, ContainerComponent, InputComponent, RowComponent, SectionComponent, SpaceComponent, TextComponent } from '../../components'
 import { appColors } from '../../constants/appColors'
 import { LoadingModal } from '../../modals'
 import { addAuth } from '../../srcRedux/reducers/authReducer'
@@ -185,7 +185,17 @@ const SignUpScreen = ({ navigation }) => {
 
       <SpaceComponent height={16} />
       <SectionComponent>
-        <ButtonComponent text='SIGN UP' type='primary' onPress={handleRegister} disable={!isFormValid} />
+        <ButtonComponent
+          text='SIGN UP'
+          type='primary'
+          onPress={handleRegister}
+          disable={!isFormValid}
+          icon={
+            <CircleComponent color={isFormValid ? appColors.primary2 : appColors.gray} size={30}>
+              <ArrowRight size={16} color={appColors.white} />
+            </CircleComponent>
+          }
+          iconFlex='right' />
       </SectionComponent>
 
       <SocialLogin />

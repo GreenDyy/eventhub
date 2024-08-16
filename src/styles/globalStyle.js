@@ -26,6 +26,7 @@ export const globalStyle = StyleSheet.create({
     },
 
     shadow: {
+        // iso
         shadowColor: 'rgba(0,0,0,0.5)',
         shadowOffset: {
             width: 0,
@@ -33,6 +34,7 @@ export const globalStyle = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 8,
+        // cho android
         elevation: 8
     },
 

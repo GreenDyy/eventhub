@@ -56,7 +56,7 @@ const EventItemComponent = (props: Props) => {
 
       </ImageBackground>
       <TextComponent text={item?.title} isTitle fontSize={18} numberOfLines={1} />
-      <AvatarGroup />
+      <AvatarGroup size={22}/>
       <RowComponent>
         <Location size={18} color={appColors.text3} variant='Bold' />
         <SpaceComponent width={5} />

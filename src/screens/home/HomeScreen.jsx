@@ -1,5 +1,5 @@
 import { HambergerMenu, Notification, SearchNormal1, Sort } from 'iconsax-react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Alert, FlatList, ImageBackground, Platform, ScrollView, StatusBar, TouchableOpacity, View } from 'react-native'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { useDispatch, useSelector } from 'react-redux'
@@ -9,11 +9,16 @@ import { appFonts } from '../../constants/appFonts'
 import { authSelector } from '../../srcRedux/reducers/authReducer'
 import { globalStyle } from '../../styles/globalStyle'
 import { images } from '../../constants/images'
+import Geolocation from '@react-native-community/geolocation'
+import axios from 'axios'
+import AddressModel from '../../models/AddressModel'
+import Geocoder from 'react-native-geocoding'
+import { appInfors } from '../../constants/appInfors'
 
 const eventData = [
   {
     title: 'Contept Sơn Tùng MTP',
-    description: 'Buổi hoà nhạc to nhất TP.HCM 2024',
+    description: 'Buổi hoà nhạc to nhất TP.HCM năm 2024 hứa hẹn sẽ là sự kiện âm nhạc lớn nhất và hoành tráng nhất mà thành phố từng chứng kiến. Với sự góp mặt của hàng loạt nghệ sĩ nổi tiếng cả trong nước và quốc tế, chương trình sẽ mang đến cho khán giả những trải nghiệm âm nhạc đỉnh cao, từ nhạc pop, rock, đến EDM và hơn thế nữa.',
     location: {
       title: 'HUIT Đại học Công Thương TP.HCM',
       address: '28 Lê Trọng Tấn'
@@ -28,7 +33,7 @@ const eventData = [
   },
   {
     title: 'Contept SooBin',
-    description: 'Buổi hoà nhạc to nhất TP.HCM 2024',
+    description: 'Buổi hoà nhạc to nhất TP.HCM năm 2024 hứa hẹn sẽ là sự kiện âm nhạc lớn nhất và hoành tráng nhất mà thành phố từng chứng kiến. Với sự góp mặt của hàng loạt nghệ sĩ nổi tiếng cả trong nước và quốc tế, chương trình sẽ mang đến cho khán giả những trải nghiệm âm nhạc đỉnh cao, từ nhạc pop, rock, đến EDM và hơn thế nữa.',
     location: {
       title: 'HUIT Đại học Công Thương TP.HCM',
       address: '28 Lê Trọng Tấn'
@@ -43,7 +48,7 @@ const eventData = [
   },
   {
     title: 'Contept Sơn Tùng MTP',
-    description: 'Buổi hoà nhạc to nhất TP.HCM 2024',
+    description: 'Buổi hoà nhạc to nhất TP.HCM năm 2024 hứa hẹn sẽ là sự kiện âm nhạc lớn nhất và hoành tráng nhất mà thành phố từng chứng kiến. Với sự góp mặt của hàng loạt nghệ sĩ nổi tiếng cả trong nước và quốc tế, chương trình sẽ mang đến cho khán giả những trải nghiệm âm nhạc đỉnh cao, từ nhạc pop, rock, đến EDM và hơn thế nữa.',
     location: {
       title: 'HUIT Đại học Công Thương TP.HCM',
       address: '28 Lê Trọng Tấn'
@@ -58,26 +63,44 @@ const eventData = [
   },
 ]
 
-const itemEvent = {
-  title: 'Contept Sơn Tùng MTP',
-  description: 'Buổi hoà nhạc to nhất TP.HCM 2024',
-  location: {
-    title: 'HUIT Đại học Công Thương TP.HCM',
-    address: '28 Lê Trọng Tấn'
-  },
-  user: [],
-  authorId: '',
-  startAt: Date.now(),
-  endAt: Date.now(),
-  date: Date.now(),
-
-}
+Geocoder.init(appInfors.GOOGLE_MAPS_API_KEY)
 
 const HomeScreen = ({ navigation }) => {
-  const [isFilter, setIsFilter] = useState(false)
-
   const dispatch = useDispatch()
   const auth = useSelector(authSelector)
+  const [myLocation, setMyLocation] = useState()
+
+  useEffect(() => {
+    Geocoder.from('Landmark 81').then((position) => {
+      console.log(position);
+    }).catch((error) => {
+      console.error('Có lỗi xảy ra:', error);
+    });
+  }, [])
+
+  useEffect(() => {
+    Geolocation.getCurrentPosition((position) => {
+      if (position.coords) {
+        reverseGeoCode(position.coords.latitude, position.coords.longitude)
+      }
+    })
+  }, []);
+
+  const reverseGeoCode = async (lat, long) => {
+    //lấy từ app eventhub bên here
+    const apiKey = 'dMtcjREnppyVY6bFJEA-J5SZzMxEzbnj18LNlWwsYzA'
+    const api = `https://geocode.search.hereapi.com/v1/revgeocode?at=${lat},${long}&apiKey=${apiKey}`
+    try {
+      const res = await axios.get(api)
+      const curLocation = res.data.items[0]
+      console.log(curLocation)
+      setMyLocation(curLocation)
+    }
+    catch (e) {
+      console.log(e)
+    }
+
+  }
 
   return (
     <View style={[globalStyle.container]}>
@@ -108,13 +131,16 @@ const HomeScreen = ({ navigation }) => {
                   color={appColors.white}
                 />
               </RowComponent>
-              <TextComponent
-                text="New York, USA"
-                flex={0}
-                color={appColors.white}
-                font={appFonts.airBnBMedium}
-                size={13}
-              />
+              {
+                myLocation && (
+                  <TextComponent
+                    text={`${myLocation.address.city}, ${myLocation.address.county}`}
+                    flex={0}
+                    color={appColors.white}
+                    font={appFonts.airBnBMedium}
+                    size={13}
+                  />)
+              }
             </View>
 
             <CircleComponent

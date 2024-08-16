@@ -1,6 +1,8 @@
 export const appColors = {
     primary: '#5689FE',
-    white: '#fff',
+    primary2: '#3357EA',
+    white: '#FFFFFF',
+    white2: '#FEFEFF',
     text: '#120D26',
     text3: '#B8B7C7',
     gray: '#807A7A',
@@ -11,5 +13,6 @@ export const appColors = {
     greenborder: '#97BE5A',
     link: '#5669FF',
     danger: '#c0392b',
-    danger2: 'red'
+    danger2: 'red',
+    bg_primary:'#EFF0FE',
 }

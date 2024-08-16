@@ -42,7 +42,6 @@ const TabNavigator = () => {
                                 <CircleComponent
                                     size={52}
                                     styles={[{ marginTop: -60 }, globalStyle.shadow]}
-                                    onPress={() => { console.log('hihi') }}
                                 >
                                     <AddSquare size={22} color={appColors.white} variant='Bold' />
                                 </CircleComponent>
