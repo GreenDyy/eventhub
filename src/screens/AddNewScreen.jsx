@@ -16,7 +16,6 @@ const initEvent = {
   startAt: Date.now(),
   endAt: Date.now(),
   date: Date.now(),
-
 }
 
 const AddNewScreen = () => {
@@ -56,6 +55,14 @@ const AddNewScreen = () => {
           value={eventData.description}
           onChangeText={(val) => { changeValue('description', val) }}
           placeholder='Description'
+          allowClear
+          numberOfLines={3}
+        />
+        <SpaceComponent height={20} />
+        <InputComponent
+          value={eventData.location.title}
+          onChangeText={(val) => { changeValue('location', {...eventData.location, title: val}) }}
+          placeholder='Title Address'
           allowClear
           numberOfLines={3}
         />

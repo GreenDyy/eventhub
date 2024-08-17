@@ -23,7 +23,7 @@ const SocialLogin = () => {
 
     const handleLoginWithGoogle = async () => {
         await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
-
+        setIsLoading(true)
         try {
             await GoogleSignin.hasPlayServices()
             const userInfo = await GoogleSignin.signIn();
@@ -49,7 +49,7 @@ const SocialLogin = () => {
     };
 
     const handleLoginWithFacebook = async () => {
-        // setIsLoading(true)
+        setIsLoading(true)
         try {
             const result = await LoginManager.logInWithPermissions(['public_profile'])
             if (result.isCancelled) {

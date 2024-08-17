@@ -6,6 +6,6 @@ export const appInfors = {
         HEIGHT: Dimensions.get('window').height,
     },
     BASE_URL: process.env.BASE_URL,
-    GOOGLE_MAPS_API_KEY: process.env.MAPS_API_KEY,
+    GOOGLE_MAPS_API_KEY: process.env.GOOGLE_MAPS_API_KEY,
 
 }   

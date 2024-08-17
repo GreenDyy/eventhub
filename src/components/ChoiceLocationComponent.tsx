@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { appColors } from '../constants/appColors'
 import RowComponent from './RowComponent'
 import TextComponent from './TextComponent'
@@ -16,7 +16,15 @@ const ChoiceLocationComponent = (props: Props) => {
     const { onPress } = props
 
     const [showModalLocation, setShowModalLocation] = useState(false)
+    const [addressSelected, setAddressSelected] = useState<any>()
 
+
+    //test useEffect nhớ xoá nè
+    useEffect(
+        () => {
+            console.log('Địa chỉ sau confirm: ', addressSelected)
+        }, [addressSelected]
+    )
     const handleClose = () => {
         setShowModalLocation(false)
     }
@@ -25,7 +33,7 @@ const ChoiceLocationComponent = (props: Props) => {
         <>
             <RowComponent style={[localStyles.inputContainer, { justifyContent: 'space-between' }]}
                 onPress={() => { setShowModalLocation(!showModalLocation) }}>
-                <RowComponent>
+                <RowComponent style={{ flex: 1 }}>
                     <CardComponent
                         styles={{ justifyContent: 'center', alignItems: 'center', height: 45, width: 45, padding: 0, margin: 0, borderRadius: 10 }}
                         bgColor={appColors.bg_primary}>
@@ -36,12 +44,14 @@ const ChoiceLocationComponent = (props: Props) => {
                         </CardComponent>
                     </CardComponent>
                     <SpaceComponent width={10} />
-                    <TextComponent text="Bình Chánh, TP. HCM" />
+                    <TextComponent text={addressSelected ? addressSelected.address : 'Chọn vị trí'} numberOfLines={1} style={{ flex: 1 }} />
                 </RowComponent>
                 <ArrowRight2 color={appColors.primary} size={22} />
             </RowComponent>
 
-            <LocationModal visible={showModalLocation} onClose={handleClose} onSelect={(val) => { console.log(val) }} />
+            <LocationModal visible={showModalLocation} onClose={handleClose} onSelect={(val) => {
+                setAddressSelected(val)
+            }} />
         </>
     )
 }

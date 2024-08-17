@@ -63,20 +63,10 @@ const eventData = [
   },
 ]
 
-Geocoder.init(appInfors.GOOGLE_MAPS_API_KEY)
-
 const HomeScreen = ({ navigation }) => {
   const dispatch = useDispatch()
   const auth = useSelector(authSelector)
   const [myLocation, setMyLocation] = useState()
-
-  useEffect(() => {
-    Geocoder.from('Landmark 81').then((position) => {
-      console.log(position);
-    }).catch((error) => {
-      console.error('Có lỗi xảy ra:', error);
-    });
-  }, [])
 
   useEffect(() => {
     Geolocation.getCurrentPosition((position) => {
@@ -99,7 +89,6 @@ const HomeScreen = ({ navigation }) => {
     catch (e) {
       console.log(e)
     }
-
   }
 
   return (
