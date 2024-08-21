@@ -7,5 +7,8 @@ export const appInfors = {
     },
     BASE_URL: process.env.BASE_URL,
     GOOGLE_MAPS_API_KEY: process.env.GOOGLE_MAPS_API_KEY,
-
+    monthNames: [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ]
 }   

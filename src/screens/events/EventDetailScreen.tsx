@@ -2,15 +2,16 @@ import { View, Text, ImageBackground, ScrollView, StatusBar, Platform, Image } f
 import React from 'react'
 import { AvatarGroup, ButtonComponent, CardComponent, CircleComponent, ContainerComponent, RowComponent, SectionComponent, SpaceComponent, TextComponent } from '../../components'
 import { images } from '../../constants/images'
-import { ArrowLeft, ArrowLeft2, ArrowRight, Calendar, Save2 } from 'iconsax-react-native'
+import { ArrowLeft, ArrowLeft2, ArrowRight, Calendar, Location, Save2 } from 'iconsax-react-native'
 import { appColors } from '../../constants/appColors'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { appFonts } from '../../constants/appFonts'
 import { appInfors } from '../../constants/appInfors'
 import LinearGradient from 'react-native-linear-gradient'
 import { globalStyle } from '../../styles/globalStyle'
+import { Event } from '../../models/EventModel'
 
-const EventDetailScreen = ({ navigation, route }) => {
+const EventDetailScreen = ({ navigation, route }: { navigation: any, route: { params: { item: Event } } }) => {
   const { item } = route.params
   return (
     <View style={{ flex: 1 }}>
@@ -89,7 +90,7 @@ const EventDetailScreen = ({ navigation, route }) => {
             <CardComponent
               styles={{ justifyContent: 'center', alignItems: 'center', height: 48, width: 48, padding: 0, margin: 0, borderRadius: 12 }}
               bgColor={appColors.bg_primary}>
-              <Calendar size={30} color={appColors.primary} variant='Bold' />
+              <Calendar size={25} color={appColors.primary} variant='Bold' />
             </CardComponent>
             <SpaceComponent width={10} />
             <View style={{ height: 50, justifyContent: 'space-between' }}>
@@ -105,12 +106,12 @@ const EventDetailScreen = ({ navigation, route }) => {
             <CardComponent
               styles={{ justifyContent: 'center', alignItems: 'center', height: 48, width: 48, padding: 0, margin: 0, borderRadius: 12 }}
               bgColor={appColors.bg_primary}>
-              <Calendar size={30} color={appColors.primary} variant='Bold' />
+              <Location size={25} color={appColors.primary} variant='Bold' />
             </CardComponent>
             <SpaceComponent width={10} />
             <View style={{ height: 50, justifyContent: 'space-between' }}>
-              <TextComponent text='14 December, 2021' fontSize={16} fontFamily={appFonts.airBnBMedium} />
-              <TextComponent text='Tuesday, 4:00PM - 9:00PM' fontSize={12} color={appColors.gray} />
+              <TextComponent text={item?.location.title} fontSize={16} fontFamily={appFonts.airBnBMedium} />
+              <TextComponent text={item?.location.address} fontSize={12} color={appColors.gray} />
             </View>
           </RowComponent>
         </SectionComponent>
@@ -136,7 +137,7 @@ const EventDetailScreen = ({ navigation, route }) => {
         </SectionComponent>
 
         {/* mô tả */}
-        <SectionComponent tionComponent>
+        <SectionComponent>
           <TextComponent text='About Event' fontSize={18} fontFamily={appFonts.airBnBMedium} />
           <TextComponent text={item?.description} />
         </SectionComponent>
@@ -149,10 +150,10 @@ const EventDetailScreen = ({ navigation, route }) => {
           width: appInfors.sizes.WIDTH,
           position: 'absolute',
           bottom: 0
-        }}/>
+        }} />
       {/* float button */}
 
-      {/* <ButtonComponent
+      <ButtonComponent
         text='BUY TICKET $120'
         icon={
           <CircleComponent color={appColors.primary2} size={30}>
@@ -160,7 +161,7 @@ const EventDetailScreen = ({ navigation, route }) => {
           </CircleComponent>
         }
         iconFlex='right'
-        style={{ position: 'absolute', bottom: -50 }} /> */}
+        style={{ position: 'absolute', bottom: -50, zIndex: 30 }} />
     </View>
   )
 }

@@ -45,6 +45,7 @@ const LocationModal = (props: Props) => {
         })
     }, []);
 
+    //chưa hoạt động dc, do api google map -> bill
     useEffect(() => {
         Geocoder.from(addressSelected).then(location => {
             const position = location.results[0].geometry.location
@@ -131,11 +132,10 @@ const LocationModal = (props: Props) => {
                             <TextComponent text={searchKey ? 'Location not found' : 'Search location'} />
                         </View>}
 
-                    {myLocation && (
                         <MapView style={{ width: appInfors.sizes.WIDTH, height: 400, alignSelf: 'center', marginVertical: 20 }}
                             initialRegion={{
-                                latitude: myLocation.lat,
-                                longitude: myLocation.long,
+                                latitude: myLocation?.lat ?? 10.803731913022185,
+                                longitude: myLocation?.long ?? 106.6678559577979,
                                 latitudeDelta: 0.0922,
                                 longitudeDelta: 0.0421,
                             }}
@@ -144,13 +144,12 @@ const LocationModal = (props: Props) => {
                             mapType='standard'
 
                             region={{
-                                latitude: myLocation.lat,
-                                longitude: myLocation.long,
+                                latitude: myLocation?.lat ?? 10.803731913022185,
+                                longitude: myLocation?.long ?? 106.6678559577979,
                                 latitudeDelta: 0.0922,
                                 longitudeDelta: 0.0421,
                             }}
                         />
-                    )}
 
                     <ButtonComponent text='Comfirm' onPress={() => {
                         onSelect({

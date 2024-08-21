@@ -9,10 +9,13 @@ import CircleComponent from "./CircleComponent"
 import TagComponent from "./TagComponent"
 import CategoriesListComponent from "./CategoriesListComponent"
 import TabBarComponent from "./TabBarComponent"
-import EventItemComponent from "./EventItemComponent" 
+import EventItemComponent from "./EventItemComponent"
 import CardComponent from "./CardComponent"
 import AvatarGroup from "./AvatarGroup"
 import ChoiceLocationComponent from "./ChoiceLocationComponent"
+import DateTimePickerComponent from "./DateTimePickerComponent"
+import DropDownPickerComponent from "./DropDownPickerComponent"
+import ImagePickerComponent from "./ImagePickerComponent"
 
 export {
     SpaceComponent,
@@ -30,4 +33,7 @@ export {
     CardComponent,
     AvatarGroup,
     ChoiceLocationComponent,
+    DateTimePickerComponent,
+    DropDownPickerComponent,
+    ImagePickerComponent
 }

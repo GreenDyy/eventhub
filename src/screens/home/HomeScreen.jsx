@@ -18,7 +18,7 @@ import { appInfors } from '../../constants/appInfors'
 const eventData = [
   {
     title: 'Contept Sơn Tùng MTP',
-    description: 'Buổi hoà nhạc to nhất TP.HCM năm 2024 hứa hẹn sẽ là sự kiện âm nhạc lớn nhất và hoành tráng nhất mà thành phố từng chứng kiến. Với sự góp mặt của hàng loạt nghệ sĩ nổi tiếng cả trong nước và quốc tế, chương trình sẽ mang đến cho khán giả những trải nghiệm âm nhạc đỉnh cao, từ nhạc pop, rock, đến EDM và hơn thế nữa.',
+    description: 'Buổi hoà nhạc to nhất TP.HCM năm 2024 hứa hẹn sẽ là sự kiện âm nhạc lớn nhất và hoành tráng nhất mà thành phố từng chứng kiến. Với sự góp mặt của hàng loạt nghệ sĩ nổi tiếng cả trong nước và quốc tế, chương trình sẽ mang đến cho khán giả những trải nghiệm âm nhạc đỉnh cao, từ nhạc pop, rock, đến EDM và hơn thế nữa. ',
     location: {
       title: 'HUIT Đại học Công Thương TP.HCM',
       address: '28 Lê Trọng Tấn'
