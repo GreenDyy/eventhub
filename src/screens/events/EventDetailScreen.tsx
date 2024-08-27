@@ -139,14 +139,14 @@ const EventDetailScreen = ({ navigation, route }: { navigation: any, route: { pa
         {/* mô tả */}
         <SectionComponent>
           <TextComponent text='About Event' fontSize={18} fontFamily={appFonts.airBnBMedium} />
-          <TextComponent text={item?.description} />
+          <TextComponent text={item?.description} style={{lineHeight: 20}}/>
         </SectionComponent>
       </ScrollView>
 
       {/* vùng mờ */}
       <LinearGradient colors={['rgba(255,255,255,0.4)', 'rgba(255,255,255,1)']}
         style={{
-          height: 40,
+          height: 120,
           width: appInfors.sizes.WIDTH,
           position: 'absolute',
           bottom: 0
@@ -161,7 +161,7 @@ const EventDetailScreen = ({ navigation, route }: { navigation: any, route: { pa
           </CircleComponent>
         }
         iconFlex='right'
-        style={{ position: 'absolute', bottom: -50, zIndex: 30 }} />
+        style={{ position: 'absolute', bottom: 0, zIndex: 30 }} />
     </View>
   )
 }

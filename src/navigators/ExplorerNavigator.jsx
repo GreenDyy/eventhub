@@ -10,7 +10,7 @@ const ExplorerNavigator = () => {
         }}>
             <Stack.Screen name='HomeScreen' component={HomeScreen} />
             <Stack.Screen name='SearchEvent' component={SearchEvent} />
-            <Stack.Screen name='EventDetailScreen' component={EventDetailScreen} />
+      
         </Stack.Navigator>
     )
 }

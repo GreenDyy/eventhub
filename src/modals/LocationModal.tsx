@@ -55,7 +55,7 @@ const LocationModal = (props: Props) => {
                 long: position.lng
             })
         }).catch((e) => {
-            console.error('Lỗi lấy lat long: ', e)
+            console.log('Lỗi lấy lat long: ', e)
         })
     }, [addressSelected])
 
@@ -132,24 +132,24 @@ const LocationModal = (props: Props) => {
                             <TextComponent text={searchKey ? 'Location not found' : 'Search location'} />
                         </View>}
 
-                        <MapView style={{ width: appInfors.sizes.WIDTH, height: 400, alignSelf: 'center', marginVertical: 20 }}
-                            initialRegion={{
-                                latitude: myLocation?.lat ?? 10.803731913022185,
-                                longitude: myLocation?.long ?? 106.6678559577979,
-                                latitudeDelta: 0.0922,
-                                longitudeDelta: 0.0421,
-                            }}
-                            showsMyLocationButton
-                            showsUserLocation
-                            mapType='standard'
+                    <MapView style={{ width: appInfors.sizes.WIDTH, height: 400, alignSelf: 'center', marginVertical: 20 }}
+                        initialRegion={{
+                            latitude: myLocation?.lat ?? 10.803731913022185,
+                            longitude: myLocation?.long ?? 106.6678559577979,
+                            latitudeDelta: 0.0922,
+                            longitudeDelta: 0.0421,
+                        }}
+                        showsMyLocationButton
+                        showsUserLocation
+                        mapType='standard'
 
-                            region={{
-                                latitude: myLocation?.lat ?? 10.803731913022185,
-                                longitude: myLocation?.long ?? 106.6678559577979,
-                                latitudeDelta: 0.0922,
-                                longitudeDelta: 0.0421,
-                            }}
-                        />
+                        region={{
+                            latitude: myLocation?.lat ?? 10.803731913022185,
+                            longitude: myLocation?.long ?? 106.6678559577979,
+                            latitudeDelta: 0.0922,
+                            longitudeDelta: 0.0421,
+                        }}
+                    />
 
                     <ButtonComponent text='Comfirm' onPress={() => {
                         onSelect({

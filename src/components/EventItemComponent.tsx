@@ -26,7 +26,7 @@ const EventItemComponent = (props: Props) => {
       styles={[globalStyle.shadow, { width: appInfors.sizes.WIDTH * 0.7 }]}
       onPress={() => { navigation.navigate('EventDetailScreen', { item }) }}
     >
-      <ImageBackground source={require('../assets/images/event-image.png')}
+      <ImageBackground source={item?.imageUrl ? { uri: item.imageUrl } : require('../assets/images/event-image.png')}
         style={{
           flex: 1,
           marginBottom: 12,
@@ -56,7 +56,7 @@ const EventItemComponent = (props: Props) => {
 
       </ImageBackground>
       <TextComponent text={item?.title} isTitle fontSize={18} numberOfLines={1} />
-      <AvatarGroup size={22}/>
+      <AvatarGroup size={22} />
       <RowComponent>
         <Location size={18} color={appColors.text3} variant='Bold' />
         <SpaceComponent width={5} />

@@ -10,24 +10,27 @@ import InputComponent from './InputComponent'
 import ButtonComponent from './ButtonComponent'
 import SpaceComponent from './SpaceComponent'
 import { appFonts } from '../constants/appFonts'
-import { TouchableOpacity } from 'react-native-gesture-handler'
 
 interface SelectecValue {
-    username: string
-    email: string
-    value: any
-    photo: string
+    label: string
+    value: {
+        id: string
+        username: string,
+        email: string,
+        photo: string,
+    } | any
 }
 interface Props {
-    username?: string
+    title?: string
     values: SelectecValue[]
     selected?: string | string[]
     onSelect: (val: string | string[]) => void
     multible?: boolean
+    type?: 'withImage' | 'withoutImage'
 }
 
 const DropDownPickerComponent = (props: Props) => {
-    const { username, values, onSelect, selected, multible } = props
+    const { title, values, onSelect, selected, multible, type = 'withoutImage' } = props
     const [isShowModal, setIsShowModal] = useState(false)
     const [searchKey, setSearchKey] = useState('')
     const [selectedItems, setSelectedItems] = useState<string[]>([])
@@ -41,8 +44,11 @@ const DropDownPickerComponent = (props: Props) => {
     }, [isShowModal])
 
     useEffect(() => {
-        onSelect(selectedItems)
-    }, [multible, selectedItems])
+        if (type === 'withImage') {
+            onSelect(selectedItems)
+        }
+
+    }, [selectedItems])
 
     useEffect(() => {
         if (isShowModal && selected) {
@@ -50,7 +56,8 @@ const DropDownPickerComponent = (props: Props) => {
         }
     }, [isShowModal, selected, multible]);
 
-    const handleSelectItem = (id: string) => {
+
+    const handleSelecMultitItem = (id: string) => {
         // neu co id user nay trong mảng đã chọn thì xoá nó rồi set data mới, còn chưa có thì thêm vào
         if (selectedItems.includes(id)) {
             let newData = [...selectedItems]
@@ -67,32 +74,38 @@ const DropDownPickerComponent = (props: Props) => {
 
     const renderSelectedItem = (item: SelectecValue) => {
         return (
-
-            <RowComponent key={item.value} style={[localStyle.item]}
+            <RowComponent key={item.value.id || item.value} style={[localStyle.item]}
 
                 onPress={
-                    multible ?
-                        () =>
-                            handleSelectItem(item.value)
-                        :
-
-                        () => onSelect(item.value)}
+                    multible
+                        ? () => handleSelecMultitItem(item.value.id || item.value)
+                        : () => {
+                            onSelect(item.value.id || item.value)
+                            modalRef.current?.close()
+                            setIsShowModal(false)
+                        }}
             >
-                <RowComponent>
-                    <Image source={{ uri: item.photo ?? 'https://i.pinimg.com/736x/28/dc/36/28dc36d443030e5222e4b39118f18d4e.jpg' }}
-                        style={{ height: 48, width: 48, borderRadius: 12 }} />
-                    <SpaceComponent width={10} />
-                    <View style={{ height: 50, justifyContent: 'space-between' }}>
-                        <TextComponent text={item.username}
-                            fontFamily={selected?.includes(item.value) ? appFonts.airBnBBold : appFonts.airBnBRegular}
-                            color={selected?.includes(item.value) ? appColors.primary : appColors.text} />
-                        <TextComponent text={item.email}
-                            fontFamily={selected?.includes(item.value) ? appFonts.airBnBBold : appFonts.airBnBRegular}
-                            color={selected?.includes(item.value) ? appColors.primary : appColors.text} fontSize={12} />
-                    </View>
-                </RowComponent>
+                {type === 'withImage' ?
+                    <RowComponent>
+                        <Image source={{ uri: item.value.photo ?? 'https://i.pinimg.com/736x/28/dc/36/28dc36d443030e5222e4b39118f18d4e.jpg' }}
+                            style={{ height: 48, width: 48, borderRadius: 12 }} />
+                        <SpaceComponent width={10} />
+                        <View style={{ height: 50, justifyContent: 'space-between' }}>
+                            <TextComponent text={item.value.username || item.label}
+                                fontFamily={selected?.includes(item.value.id) ? appFonts.airBnBBold : appFonts.airBnBRegular}
+                                color={selected?.includes(item.value.id) ? appColors.primary : appColors.text} />
+                            <TextComponent text={item.value.email}
+                                fontFamily={selected?.includes(item.value.id) ? appFonts.airBnBBold : appFonts.airBnBRegular}
+                                color={selected?.includes(item.value.id) ? appColors.primary : appColors.text} fontSize={12} />
+                        </View>
+                    </RowComponent>
+                    :
+                    <TextComponent text={item.label}
+                        fontFamily={selected?.includes(item.value) ? appFonts.airBnBBold : appFonts.airBnBRegular}
+                        color={selected?.includes(item.value) ? appColors.primary : appColors.text} />
+                }
 
-                <Heart size={22} color={appColors.green1} variant={selected?.includes(item.value) ? 'Bold' : 'Broken'} />
+                <Heart size={22} color={appColors.green1} variant={selected?.includes(item.value.id || item.value) ? 'Bold' : 'Broken'} />
 
             </RowComponent >
 
@@ -101,7 +114,7 @@ const DropDownPickerComponent = (props: Props) => {
 
     return (
         <View style={{}}>
-            {username && <TextComponent text={username} style={{ marginBottom: 8 }} />}
+            {title && <TextComponent text={title} style={{ marginBottom: 8 }} fontFamily={appFonts.airBnBMedium} />}
             <RowComponent
                 onPress={() => { setIsShowModal(true) }}
                 style={{
@@ -117,8 +130,21 @@ const DropDownPickerComponent = (props: Props) => {
                     padding: 8,
                     // marginBottom: 20,
                 }}>
-                <RowComponent>
-                    <TextComponent text={selectedItems.length !== 0 ? 'Đã chọn' : 'Select'} />
+                <RowComponent style={{ flex: 1, flexWrap: 'wrap' }}>
+                    {selected ? (
+                        selectedItems.length > 0 ? (
+                            <TextComponent text="Đã chọn" />
+                        ) : (
+                            <TextComponent
+                                text={
+                                    values.find(element => element.value === selected)?.label ??
+                                    ''
+                                }
+                            />
+                        )
+                    ) : (
+                        <TextComponent text="Select" />
+                    )}
                 </RowComponent>
                 <ArrowDown2 size={22} color={appColors.gray} />
             </RowComponent>
@@ -162,7 +188,7 @@ const DropDownPickerComponent = (props: Props) => {
                     }>
                     {/* data se hien thi o day */}
                     <View style={{ paddingHorizontal: 20 }}>
-                        {values.map((item, index) => {
+                        {values.map((item) => {
                             return (
                                 renderSelectedItem(item)
                             )

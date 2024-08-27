@@ -6,6 +6,7 @@ import AppRouter from './src/navigators/AppRouter'
 import store from './src/srcRedux/store'
 import { Host } from 'react-native-portalize'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import FlashMessage from "react-native-flash-message";
 
 const App = () => {
   
@@ -16,6 +17,7 @@ const App = () => {
         <Host>
           <NavigationContainer>
             <AppRouter />
+            <FlashMessage position="top" /> 
           </NavigationContainer>
         </Host>
       </Provider>

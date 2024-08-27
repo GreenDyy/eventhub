@@ -17,51 +17,77 @@ import { appInfors } from '../../constants/appInfors'
 
 const eventData = [
   {
-    title: 'Contept Sơn Tùng MTP',
-    description: 'Buổi hoà nhạc to nhất TP.HCM năm 2024 hứa hẹn sẽ là sự kiện âm nhạc lớn nhất và hoành tráng nhất mà thành phố từng chứng kiến. Với sự góp mặt của hàng loạt nghệ sĩ nổi tiếng cả trong nước và quốc tế, chương trình sẽ mang đến cho khán giả những trải nghiệm âm nhạc đỉnh cao, từ nhạc pop, rock, đến EDM và hơn thế nữa. ',
+    title: 'Concert Sơn Tùng MTP',
+    description: 'Buổi hòa nhạc to nhất TP.HCM năm 2024 hứa hẹn sẽ là sự kiện âm nhạc lớn nhất và hoành tráng nhất mà thành phố từng chứng kiến. Với sự góp mặt của hàng loạt nghệ sĩ nổi tiếng cả trong nước và quốc tế, chương trình sẽ mang đến cho khán giả những trải nghiệm âm nhạc đỉnh cao, từ nhạc pop, rock, đến EDM và hơn thế nữa. Buổi hòa nhạc này không chỉ là một sự kiện giải trí mà còn là nơi kết nối tình yêu âm nhạc của hàng nghìn người hâm mộ. Tất cả mọi người sẽ cùng nhau hát vang, nhảy múa và thưởng thức những bản hit đình đám nhất của Sơn Tùng MTP. Đây sẽ là một đêm khó quên đối với tất cả những ai tham dự.',
     location: {
       title: 'HUIT Đại học Công Thương TP.HCM',
       address: '28 Lê Trọng Tấn'
     },
-    imageUrl: '',
+    imageUrl: 'https://img.freepik.com/free-vector/music-frequency-edm-background-design_1017-33904.jpg',
     user: [],
     authorId: '',
     startAt: Date.now(),
     endAt: Date.now(),
     date: Date.now(),
-
   },
   {
-    title: 'Contept SooBin',
-    description: 'Buổi hoà nhạc to nhất TP.HCM năm 2024 hứa hẹn sẽ là sự kiện âm nhạc lớn nhất và hoành tráng nhất mà thành phố từng chứng kiến. Với sự góp mặt của hàng loạt nghệ sĩ nổi tiếng cả trong nước và quốc tế, chương trình sẽ mang đến cho khán giả những trải nghiệm âm nhạc đỉnh cao, từ nhạc pop, rock, đến EDM và hơn thế nữa.',
+    title: 'Lễ hội Âm nhạc Quốc tế',
+    description: 'Lễ hội âm nhạc quốc tế tại TP.HCM năm 2024 sẽ là một sự kiện đáng mong đợi nhất trong năm với sự góp mặt của những nghệ sĩ hàng đầu từ nhiều quốc gia khác nhau. Sự kiện sẽ diễn ra trong suốt 3 ngày liền với những màn trình diễn đỉnh cao từ nhiều thể loại âm nhạc như pop, rock, hip-hop, EDM, và nhạc cổ điển. Khán giả sẽ được trải nghiệm một không gian âm nhạc đa dạng, từ những sân khấu ngoài trời đầy sôi động đến những buổi hòa nhạc trong nhà đầy cảm xúc. Đây không chỉ là một lễ hội âm nhạc mà còn là dịp để giao lưu, kết nối với những người bạn cùng sở thích âm nhạc từ khắp nơi trên thế giới.',
     location: {
-      title: 'HUIT Đại học Công Thương TP.HCM',
-      address: '28 Lê Trọng Tấn'
+      title: 'Sân vận động Phú Thọ',
+      address: 'Số 1 Lữ Gia, Quận 11'
     },
-    imageUrl: '',
+    imageUrl: 'https://images7.alphacoders.com/133/1339451.png',
     user: [],
     authorId: '',
     startAt: Date.now(),
     endAt: Date.now(),
     date: Date.now(),
-
   },
   {
-    title: 'Contept Sơn Tùng MTP',
-    description: 'Buổi hoà nhạc to nhất TP.HCM năm 2024 hứa hẹn sẽ là sự kiện âm nhạc lớn nhất và hoành tráng nhất mà thành phố từng chứng kiến. Với sự góp mặt của hàng loạt nghệ sĩ nổi tiếng cả trong nước và quốc tế, chương trình sẽ mang đến cho khán giả những trải nghiệm âm nhạc đỉnh cao, từ nhạc pop, rock, đến EDM và hơn thế nữa.',
+    title: 'Giao lưu âm nhạc với Hà Anh Tuấn',
+    description: 'Chương trình giao lưu âm nhạc với Hà Anh Tuấn sẽ mang đến cho khán giả những phút giây lắng đọng với những bản tình ca ngọt ngào và sâu lắng. Đêm nhạc không chỉ là nơi để thưởng thức những ca khúc nổi tiếng của Hà Anh Tuấn mà còn là dịp để khán giả có thể chia sẻ những cảm xúc, câu chuyện của mình với nam ca sĩ. Với không gian âm nhạc ấm cúng và gần gũi, đêm nhạc hứa hẹn sẽ mang đến những trải nghiệm khó quên cho khán giả. Đây sẽ là một cơ hội tuyệt vời để khán giả và nghệ sĩ có thể gắn kết, thấu hiểu và đồng cảm với nhau qua những giai điệu thân quen.',
     location: {
-      title: 'HUIT Đại học Công Thương TP.HCM',
-      address: '28 Lê Trọng Tấn'
+      title: 'Nhà hát Hòa Bình',
+      address: '240 Đường 3 Tháng 2, Quận 10'
     },
-    imageUrl: '',
+    imageUrl: 'https://img.freepik.com/free-vector/music-party-background-neon-style_1017-32948.jpg',
     user: [],
     authorId: '',
     startAt: Date.now(),
     endAt: Date.now(),
     date: Date.now(),
-
   },
-]
+  {
+    title: 'Đêm nhạc Hoàng Thùy Linh',
+    description: 'Đêm nhạc Hoàng Thùy Linh tại TP.HCM năm 2024 hứa hẹn sẽ là một sự kiện âm nhạc hoành tráng với những màn trình diễn sôi động và bùng nổ. Khán giả sẽ được thưởng thức những bản hit đình đám của nữ ca sĩ, từ những ca khúc pop hiện đại đến những bài hát mang đậm âm hưởng dân gian đương đại. Với sự đầu tư kỹ lưỡng về sân khấu, ánh sáng, và trang phục, đêm nhạc sẽ mang đến một trải nghiệm âm nhạc đa chiều, nơi nghệ thuật trình diễn và âm nhạc hòa quyện với nhau tạo nên những phút giây thăng hoa. Đây sẽ là một đêm nhạc không thể bỏ qua đối với những ai yêu thích âm nhạc và nghệ thuật trình diễn.',
+    location: {
+      title: 'Trung tâm Hội nghị Quốc gia',
+      address: '57 Trần Hưng Đạo, Quận 1'
+    },
+    imageUrl: 'https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fG11c2ljJTIwZmVzdGl2YWx8ZW58MHx8MHx8fDA%3D',
+    user: [],
+    authorId: '',
+    startAt: Date.now(),
+    endAt: Date.now(),
+    date: Date.now(),
+  },
+  {
+    title: 'Festival Âm nhạc Mùa Hè',
+    description: 'Festival âm nhạc mùa hè tại TP.HCM năm 2024 sẽ mang đến cho khán giả một không gian âm nhạc đầy sắc màu và sôi động. Chương trình sẽ diễn ra trong suốt 2 ngày với những màn trình diễn đa dạng từ nhiều thể loại âm nhạc như pop, rock, hip-hop, và EDM. Đây không chỉ là nơi để thưởng thức âm nhạc mà còn là dịp để khán giả có thể tham gia vào các hoạt động vui chơi, giải trí, và giao lưu với những người bạn mới. Với sự tham gia của nhiều nghệ sĩ nổi tiếng trong và ngoài nước, festival hứa hẹn sẽ mang đến những phút giây thăng hoa và đáng nhớ cho tất cả những ai tham gia.',
+    location: {
+      title: 'Công viên 23 tháng 9',
+      address: 'Phạm Ngũ Lão, Quận 1'
+    },
+    imageUrl: 'https://w0.peakpx.com/wallpaper/786/351/HD-wallpaper-music-concert-passionate-live-party.jpg',
+    user: [],
+    authorId: '',
+    startAt: Date.now(),
+    endAt: Date.now(),
+    date: Date.now(),
+  }
+];
+
 
 const HomeScreen = ({ navigation }) => {
   const dispatch = useDispatch()
