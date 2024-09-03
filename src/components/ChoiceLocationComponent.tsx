@@ -9,11 +9,11 @@ import SpaceComponent from './SpaceComponent'
 import { LocationModal } from '../modals'
 
 interface Props {
-    onPress?: () => void
+    onSelect: (val: any) => void;
 }
 
 const ChoiceLocationComponent = (props: Props) => {
-    const { onPress } = props
+    const {onSelect} = props;
 
     const [showModalLocation, setShowModalLocation] = useState(false)
     const [addressSelected, setAddressSelected] = useState<any>()
@@ -51,6 +51,7 @@ const ChoiceLocationComponent = (props: Props) => {
 
             <LocationModal visible={showModalLocation} onClose={handleClose} onSelect={(val) => {
                 setAddressSelected(val)
+                onSelect(val)
             }} />
         </>
     )

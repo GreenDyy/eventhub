@@ -1,16 +1,14 @@
-import { View, Text, Modal, TouchableOpacity, Alert, FlatList, StyleSheet } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import { ButtonComponent, InputComponent, RowComponent, SpaceComponent, TextComponent } from '../components'
-import AntDesign from 'react-native-vector-icons/AntDesign'
-import { appColors } from '../constants/appColors'
-import { CloseSquare, SearchNormal } from 'iconsax-react-native'
+import Geolocation from '@react-native-community/geolocation'
 import axios from 'axios'
+import { SearchNormal } from 'iconsax-react-native'
+import React, { useEffect, useState } from 'react'
+import { Alert, FlatList, Modal, StyleSheet, TouchableOpacity, View } from 'react-native'
+import MapView, { Marker } from 'react-native-maps'
+import { ButtonComponent, InputComponent, RowComponent, SpaceComponent, TextComponent } from '../components'
+import { appColors } from '../constants/appColors'
+import { appInfors } from '../constants/appInfors'
 import { LocationModel } from '../models/LocationModel'
 import LoadingModal from './LoadingModal'
-import MapView from 'react-native-maps'
-import { appInfors } from '../constants/appInfors'
-import Geolocation from '@react-native-community/geolocation'
-import Geocoder from 'react-native-geocoding'
 
 interface Props {
     visible: boolean,
@@ -24,8 +22,6 @@ interface Props {
     }) => void
 }
 
-Geocoder.init(appInfors.GOOGLE_MAPS_API_KEY as string)
-
 const LocationModal = (props: Props) => {
     const { visible, onSelect, onClose } = props
     const [searchKey, setSearchKey] = useState('')
@@ -35,6 +31,7 @@ const LocationModal = (props: Props) => {
     const [myLocation, setMyLocation] = useState<{ lat: number, long: number }>()
 
     useEffect(() => {
+        // mặc định vào là lấy ví trị của bạn
         Geolocation.getCurrentPosition((position) => {
             if (position.coords) {
                 setMyLocation({
@@ -45,19 +42,30 @@ const LocationModal = (props: Props) => {
         })
     }, []);
 
-    //chưa hoạt động dc, do api google map -> bill
     useEffect(() => {
-        Geocoder.from(addressSelected).then(location => {
-            const position = location.results[0].geometry.location
-            console.log(position)
-            setMyLocation({
-                lat: position.lat,
-                long: position.lng
+        setIsLoading(true);
+        // lấy ra lat long từ địa chỉ đã chọn
+        fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(addressSelected)}&format=json`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.length > 0) {
+                    const location = data[0];
+                    console.log(`Latitude: ${location.lat}, Longitude: ${location.lon}`);
+
+                    // Set the new location
+                    setMyLocation({
+                        lat: parseFloat(location.lat),
+                        long: parseFloat(location.lon)
+                    });
+                } else {
+                    console.log('Lỗi lấy lat long');
+                }
             })
-        }).catch((e) => {
-            console.log('Lỗi lấy lat long: ', e)
-        })
-    }, [addressSelected])
+            .catch(error => console.error('Error:', error))
+            .finally(() => {
+                setIsLoading(false);
+            });
+    }, [addressSelected]);
 
     useEffect(() => {
         if (!searchKey) {
@@ -65,33 +73,58 @@ const LocationModal = (props: Props) => {
         }
     }, [searchKey])
 
+    //này để lấy 1 mảng các vị trí liên quan có tên cụ thể
     const handleSearchLocation = async () => {
         //lấy từ app eventhub bên here
-        const latitude = 10.8231
-        const longitude = 106.6297
         const apiKey = 'dMtcjREnppyVY6bFJEA-J5SZzMxEzbnj18LNlWwsYzA'
-        const api = `https://autocomplete.search.hereapi.com/v1/autocomplete?q=${searchKey}&at=${latitude},${longitude}&limit=10&apiKey=${apiKey}`
+        const api = `https://autocomplete.search.hereapi.com/v1/autocomplete?q=${searchKey}&limit=20&apiKey=${apiKey}`;
         try {
             setIsLoading(true)
             const res = await axios.get(api)
             if (res.status === 200) {
-                console.log(res.data.items)
                 setLocations(res.data.items)
                 setIsLoading(false)
             }
         }
         catch (e) {
-            Alert.alert('lỗi', `${e}`)
+            Alert.alert('lỗi tìm kiếm vị trí', `${e}`)
             console.log(e)
             setIsLoading(false)
         }
     }
 
-    const handleSelectedLocation = (location: any) => {
-        setAddressSelected(location)
-        setSearchKey('')
-        console.log(addressSelected)
-    }
+    const handleGetAddressFromPosition = async ({
+        latitude,
+        longitude,
+    }: {
+        latitude: number;
+        longitude: number;
+    }) => {
+        //lấy từ app eventhub bên here
+        const apiKey = 'dMtcjREnppyVY6bFJEA-J5SZzMxEzbnj18LNlWwsYzA'
+        const api = `https://geocode.search.hereapi.com/v1/revgeocode?at=${latitude},${longitude}&apiKey=${apiKey}`
+        try {
+            const res = await axios.get(api)
+            const curLocation = res.data.items[0]
+            console.log('vị trị vừa tap vào nè: ', curLocation.address.label)
+            setMyLocation({
+                lat: latitude,
+                long: longitude
+            })
+            setAddressSelected(curLocation.address.label)
+            onSelect({
+                address: curLocation.address.label,
+                position: {
+                    lat: latitude,
+                    long: longitude,
+                },
+            })
+        }
+        catch (e) {
+            console.log(e)
+        }
+        onClose();
+    };
 
     return (
         <Modal
@@ -121,7 +154,11 @@ const LocationModal = (props: Props) => {
                                 renderItem={({ item, index }) => {
                                     return (
                                         <TouchableOpacity style={{ marginBottom: 10 }}
-                                            onPress={() => { handleSelectedLocation(item.address.label) }}>
+                                            onPress={async () => {
+                                                setIsLoading(true);
+                                                setAddressSelected(item.address.label);
+                                                setSearchKey('');
+                                            }}>
                                             <TextComponent text={item.address.label} />
                                         </TouchableOpacity>
                                     )
@@ -139,17 +176,32 @@ const LocationModal = (props: Props) => {
                             latitudeDelta: 0.0922,
                             longitudeDelta: 0.0421,
                         }}
-                        showsMyLocationButton
-                        showsUserLocation
-                        mapType='standard'
-
                         region={{
                             latitude: myLocation?.lat ?? 10.803731913022185,
                             longitude: myLocation?.long ?? 106.6678559577979,
                             latitudeDelta: 0.0922,
                             longitudeDelta: 0.0421,
                         }}
-                    />
+                        showsMyLocationButton
+                        showsUserLocation
+                        mapType='standard'
+                        onPress={event => {
+                            handleGetAddressFromPosition(event.nativeEvent.coordinate)
+                            console.log('chổ tui click vào map nè: ', event.nativeEvent.coordinate)
+                        }
+                        }
+                    >
+                        {/* Thêm Marker vào MapView */}
+                        {myLocation && (
+                            <Marker
+                                coordinate={{
+                                    latitude: myLocation.lat,
+                                    longitude: myLocation.long
+                                }}
+                                title="Vị trí đã chọn"
+                            />
+                        )}
+                    </MapView>
 
                     <ButtonComponent text='Comfirm' onPress={() => {
                         onSelect({

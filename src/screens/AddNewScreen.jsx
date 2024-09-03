@@ -6,14 +6,19 @@ import userAPI from '../apis/userApi'
 import { Alert, Image } from 'react-native'
 import { appColors } from '../constants/appColors'
 import { showMessage, hideMessage } from "react-native-flash-message";
+import storage from '@react-native-firebase/storage'
+import eventAPI from '../apis/eventApi'
+import { LoadingModal } from '../modals'
 
 const initEvent = {
   title: '',
   category: '',
   description: '',
-  location: {
-    title: '',
-    address: ''
+  locationTitle: '',
+  locationAddress: '',
+  position: {
+    lat: '',
+    long: '',
   },
   imageUrl: '',
   users: [],
@@ -24,21 +29,22 @@ const initEvent = {
   price: ''
 }
 
-const AddNewScreen = () => {
+const AddNewScreen = ({ navigation }) => {
   const user = useSelector(authSelector)
   const [eventData, setEventData] = useState({ ...initEvent, authorId: user.id })
   const [usersSelected, setUsersSelected] = useState([])
+  const [imageSelected, setImageSeleted] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
 
   //de coi console.log thoi, xog xoá nha
   useEffect(() => {
-    // console.log(eventData)
+    console.log(eventData)
   }, [eventData])
 
   useEffect(() => {
     // data này dùng cho DropDownUser nha
     handleGetAllUsers()
-    console.log('có ko:', usersSelected)
   }, [])
 
 
@@ -74,43 +80,99 @@ const AddNewScreen = () => {
     setEventData(temp)
   }
   const handleAddEvent = async () => {
-    if (eventData.title && eventData.category && eventData.location.title && eventData.location.address && eventData.price) {
-      showMessage({
-        message: "Thành công",
-        description: "This is our second message",
-        type: "success",
-      });
-    }
-    else {
-      const missingFields = [];
-      if (!eventData.title) {
-        missingFields.push('Title')
-      }
-      if (!eventData.category) {
-        missingFields.push('Category')
-      }
-      if (!eventData.location.title) {
-        missingFields.push('Title Location')
-      }
-      if (!eventData.location.address) {
-        missingFields.push('Address')
-      }
-      if (!eventData.price) {
-        missingFields.push('Price')
-      }
+    setIsLoading(true);
+    
+    if (eventData.title && eventData.category && eventData.locationTitle && eventData.locationAddress && eventData.price) {
+        if (imageSelected) {
+            try {
+                const fileExtension = imageSelected.mime.split('/')[1]; // lấy phần đuôi tệp từ mime
+                const fileName = `image-${imageSelected.modificationDate}.${fileExtension}`;
+                const pathFireBase = `images/${fileName}`;
+                
+                // Upload file lên Firebase
+                const uploadTask = storage().ref(pathFireBase).putFile(imageSelected.path);
 
-      showMessage({
-        message: "Thông báo",
-        description: `Vui lòng nhập đầy đủ thông tin thông tin sau: ${missingFields.join(', ')}`,
-        type: "danger",
-      });
+                uploadTask.on('state_changed', (snapshot) => {
+                    // Xử lý quá trình upload (có thể thêm thông báo tiến độ)
+                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log(`Upload is ${progress}% done`);
+                });
+
+                await uploadTask;
+
+                const downloadURL = await uploadTask.snapshot.ref.getDownloadURL();
+                console.log('image được lưu tại: ', downloadURL);
+                changeValue('imageUrl', downloadURL);
+
+                handlePushEvent({...eventData, imageUrl: downloadURL});
+                
+                showMessage({
+                    message: "Thành công",
+                    description: "Thêm sự kiện thành công",
+                    type: "success",
+                });
+
+                navigation.goBack();
+            } catch (error) {
+                console.error('Error uploading image: ', error);
+                showMessage({
+                    message: "Lỗi",
+                    description: "Đã xảy ra lỗi khi tải ảnh lên",
+                    type: "danger",
+                });
+            }
+        } else {
+            handlePushEvent(eventData);
+            showMessage({
+                message: "Thành công",
+                description: "Thêm sự kiện thành công",
+                type: "success",
+            });
+            navigation.goBack();
+        }
+    } else {
+        const missingFields = [];
+        if (!eventData.title) missingFields.push('Title');
+        if (!eventData.category) missingFields.push('Category');
+        if (!eventData.locationTitle) missingFields.push('Title Location');
+        if (!eventData.locationAddress) missingFields.push('Address');
+        if (!eventData.price) missingFields.push('Price');
+
+        showMessage({
+            message: "Thông báo",
+            description: `Vui lòng nhập đầy đủ thông tin sau: ${missingFields.join(', ')}`,
+            type: "danger",
+        });
     }
-  }
+
+    setIsLoading(false);
+};
+
+
+  const handleLocation = (val) => {
+    const items = { ...eventData };
+    items.locationAddress = val.address;
+    items.position = val.position;
+    setEventData(items);
+  };
 
   const handleImageSelected = (val) => {
     // mục tiêu cuối củng là cho ảnh thành 1 url và load nó thoi
     changeValue('imageUrl', val.path)
-    console.log('đây là file hình: ', val.path)
+    setImageSeleted(val)
+    console.log('đây là file hình: lấy dc ', val)
+  }
+
+  const handlePushEvent = async (event) => {
+    console.log(event)
+    const api = `/add-event`
+    try {
+      const res = await eventAPI.handleEvent(api, event, 'post')
+      console.log(res)
+    }
+    catch (e) {
+      console.log(e)
+    }
   }
 
   return (
@@ -190,8 +252,8 @@ const AddNewScreen = () => {
 
         <SpaceComponent height={20} />
         <InputComponent
-          value={eventData.location.title}
-          onChangeText={(val) => { changeValue('location', { ...eventData.location, title: val }) }}
+          value={eventData.locationTitle}
+          onChangeText={(val) => { changeValue('locationTitle', val) }}
           placeholder='Title Address'
           allowClear
         />
@@ -248,13 +310,13 @@ const AddNewScreen = () => {
       </SectionComponent>
 
       <SectionComponent>
-        <ChoiceLocationComponent />
+        <ChoiceLocationComponent onSelect={val => handleLocation(val)} />
       </SectionComponent>
 
       <SectionComponent>
         <ButtonComponent text='Add new' onPress={handleAddEvent} />
       </SectionComponent>
-
+      <LoadingModal visible={isLoading} />
     </ContainerComponent>
   )
 }

@@ -11,6 +11,7 @@ import EventNavigator from './EventNavigator'
 import ExplorerNavigator from './ExplorerNavigator'
 import MapNavigator from './MapNavigator'
 import ProfileNavigator from './ProfileNavigator'
+import { appFonts } from '../constants/appFonts'
 
 
 const TabNavigator = () => {
@@ -68,8 +69,9 @@ const TabNavigator = () => {
                             text={route.name}
                             color={focused ? appColors.green1 : appColors.gray3}
                             fontSize={12}
+                            fontFamily={appFonts.airBnBMedium}
                             style={{
-                                marginBottom: 12
+                                marginBottom: 10
                             }}
                         />
                     )
